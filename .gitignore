@@ -1,7 +1,7 @@
-logs
-*.log
-pids
-*.pid
-*.seed
-node_modules
+*.iml
 .idea
+!.idea/runConfigurations/serve.xml
+node_modules/
+.tmp/
+dist/
+/.vagrant/
