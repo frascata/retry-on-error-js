@@ -1,6 +1,6 @@
 'use strict';
 
-let DefaultLogger = require('./default-logger');
+let DefaultLogger = require('../src/strategies/log/default-logger');
 
 describe('Default Logger', () => {
 

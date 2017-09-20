@@ -1,9 +1,6 @@
-'use strict';
+import Delay from './main';
 
-const Delay = require('@emartech/delay-js');
-
-class FibonacciDelay {
-
+export default class {
   constructor(tries, multiplier = 1) {
     this._multiplier = multiplier;
     [...this._delayInSeconds] = this._fibonacci(tries - 1);
@@ -29,5 +26,3 @@ class FibonacciDelay {
     }
   }
 }
-
-module.exports = FibonacciDelay;

@@ -1,6 +1,6 @@
 'use strict';
 
-const NoDelay = require('./no-delay');
+const NoDelay = require('../src/strategies/delay/no-delay');
 
 describe('No Delay Strategy', () => {
 

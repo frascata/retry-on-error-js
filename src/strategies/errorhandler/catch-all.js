@@ -1,6 +1,4 @@
-'use strict';
-
-class CatchAllErrorHandlerStrategy {
+export default class CatchAllErrorHandlerStrategy {
   static create() {
     return new CatchAllErrorHandlerStrategy();
   }
@@ -9,5 +7,3 @@ class CatchAllErrorHandlerStrategy {
     return true;
   }
 }
-
-module.exports = CatchAllErrorHandlerStrategy;

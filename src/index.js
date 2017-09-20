@@ -1,44 +1,44 @@
-'use strict';
+import FibonacciDelay from './strategies/delay/fibonacci-delay';
+import ExponentialDelay from './strategies/delay/exponential-delay';
+import CatchAllErrorHandler from './strategies/errorhandler/catch-all';
+import DefaultLogger from './strategies/log/default-logger';
 
-const config = require('../config');
-const FibonacciDelay = require('./strategies/delay/fibonacci-delay');
-const ExponentialDelay = require('./strategies/delay/exponential-delay');
-const CatchAllErrorHandler = require('./strategies/errorhandler/catch-all');
-const DefaultLogger = require('./strategies/log/default-logger');
 
-class RetryOnError {
+const CONFIG = {
+  maxTries: 10
+};
+
+export default class RetryOnError {
 
   static create(asyncFunction, maxTries) {
     return RetryOnError.createWithStrategy(
       asyncFunction,
       {
-        delayStrategy: new FibonacciDelay(maxTries || config.maxTries),
+        delayStrategy: new FibonacciDelay(maxTries || CONFIG.maxTries),
         errorHandlerStrategy: new CatchAllErrorHandler(),
         logStrategy: DefaultLogger.logError
       }
     );
   }
 
-  static createWithStrategy(asyncFunction, { delayStrategy, errorHandlerStrategy, logStrategy, context }) {
+  static createWithStrategy(asyncFunction, {delayStrategy, errorHandlerStrategy, logStrategy, context}) {
     return new RetryOnError(
       asyncFunction,
-      delayStrategy || new FibonacciDelay(config.maxTries),
+      delayStrategy || new FibonacciDelay(CONFIG.maxTries),
       errorHandlerStrategy || new CatchAllErrorHandler(),
       logStrategy || DefaultLogger.logError,
-      context || { }
+      context || {}
     );
   }
 
-  static async runExponential(
-    asyncFunction,
-    context = { },
-    {
-      maxTries = 5,
-      exponentialBase = 2,
-      multiplier = 5,
-      logStrategy = DefaultLogger.logError
-    } = {}
-  ) {
+  static async runExponential(asyncFunction,
+                              context = {},
+                              {
+                                maxTries = 5,
+                                exponentialBase = 2,
+                                multiplier = 5,
+                                logStrategy = DefaultLogger.logError
+                              } = {}) {
     const retry = RetryOnError.createWithStrategy(asyncFunction, {
       delayStrategy: new ExponentialDelay(maxTries, multiplier, exponentialBase),
       logStrategy: logStrategy,
@@ -47,15 +47,13 @@ class RetryOnError {
     return await retry.run();
   }
 
-  static async runFibonacci(
-    asyncFunction,
-    context = { },
-    {
-      maxTries = 5,
-      multiplier = 5,
-      logStrategy = DefaultLogger.logError
-    } = {}
-  ) {
+  static async runFibonacci(asyncFunction,
+                            context = {},
+                            {
+                              maxTries = 5,
+                              multiplier = 5,
+                              logStrategy = DefaultLogger.logError
+                            } = {}) {
     const retry = RetryOnError.createWithStrategy(asyncFunction, {
       delayStrategy: new FibonacciDelay(maxTries, multiplier),
       logStrategy: logStrategy,
@@ -64,15 +62,13 @@ class RetryOnError {
     return await retry.run();
   }
 
-  static async runConstant(
-    asyncFunction,
-    context = { },
-    {
-      maxTries = 5,
-      multiplier = 5,
-      logStrategy = DefaultLogger.logError
-    } = {}
-  ) {
+  static async runConstant(asyncFunction,
+                           context = {},
+                           {
+                             maxTries = 5,
+                             multiplier = 5,
+                             logStrategy = DefaultLogger.logError
+                           } = {}) {
     const retry = RetryOnError.createWithStrategy(asyncFunction, {
       delayStrategy: new ExponentialDelay(maxTries, multiplier, 1),
       logStrategy: logStrategy,
@@ -101,7 +97,7 @@ class RetryOnError {
         return await this.asyncFunction();
       } catch (e) {
 
-        this._logStrategy(e, { attempts, lastDelayTime, context: this._context });
+        this._logStrategy(e, {attempts, lastDelayTime, context: this._context});
 
         if (!this._errorHandlerStrategy.canCatch(e)) {
           throw e;
@@ -117,5 +113,3 @@ class RetryOnError {
     } while (!wasSuccessful);
   }
 }
-
-module.exports = RetryOnError;

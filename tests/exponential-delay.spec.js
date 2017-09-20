@@ -1,7 +1,7 @@
 'use strict';
 
-const Delay = require('@emartech/delay-js');
-const ExponentialDelay = require('./exponential-delay');
+const Delay = require('../src/strategies/delay/index');
+const ExponentialDelay = require('../src/strategies/delay/exponential-delay');
 
 describe('Exponential Strategy', () => {
 

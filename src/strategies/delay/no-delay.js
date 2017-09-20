@@ -1,6 +1,4 @@
-'use strict';
-
-class NoDelay {
+export default class {
   delay() {
     return Promise.resolve(0);
   }
@@ -9,5 +7,3 @@ class NoDelay {
     return Number.MAX_SAFE_INTEGER;
   }
 }
-
-module.exports = NoDelay;

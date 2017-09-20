@@ -1,7 +1,7 @@
 'use strict';
 
-const Delay = require('@emartech/delay-js');
-const FibonacciDelay = require('./fibonacci-delay');
+const Delay = require('../src/strategies/delay/index');
+const FibonacciDelay = require('../src/strategies/delay/fibonacci-delay');
 
 describe('Exponential Strategy', () => {
 

@@ -1,8 +1,6 @@
-'use strict';
+import Delay from './main';
 
-const Delay = require('@emartech/delay-js');
-
-class ExponentialDelay {
+export default class {
   constructor(tries, multiplier = 1, exponentialBase = 2) {
     this._multiplier = multiplier;
     [...this._delayInSeconds] = this._exponential(tries - 1, exponentialBase);
@@ -25,5 +23,3 @@ class ExponentialDelay {
     }
   }
 }
-
-module.exports = ExponentialDelay;

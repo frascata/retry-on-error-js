@@ -1,6 +1,6 @@
 'use strict';
 
-const CatchAllErrorHandlerStrategy = require('./catch-all');
+const CatchAllErrorHandlerStrategy = require('../src/strategies/errorhandler/catch-all');
 
 describe('Catch All error handler strategy', () => {
 

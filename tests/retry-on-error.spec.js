@@ -1,10 +1,10 @@
 'use strict';
 
-const Delay = require('@emartech/delay-js');
+const Delay = require('./delay/index');
 
-const RetryOnError = require('./retry-on-error');
-const ExponentialDelay = require('./strategies/delay/exponential-delay');
-const DefaultLogger = require('./strategies/log/default-logger');
+const RetryOnError = require('../src/retry-on-error');
+const ExponentialDelay = require('../src/strategies/delay/exponential-delay');
+const DefaultLogger = require('../src/strategies/log/default-logger');
 
 describe('Retry On Error', () => {
   let fn;
