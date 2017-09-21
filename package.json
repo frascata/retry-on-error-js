@@ -1,7 +1,7 @@
 {
   "name": "retry-on-error-js",
   "version": "0.0.1",
-  "description": "",
+  "description": "Async/await retry function",
   "main": "./lib/index.js",
   "scripts": {
     "test-to-befixed": "NODE_ENV=test mocha --harmony $(find . -name \"*.spec.js\" -not -path \"./node_modules/*\")",
@@ -12,12 +12,11 @@
     "type": "git",
     "url": "git+https://github.com/frascata/retry-on-error-js"
   },
-  "author": "",
+  "author": "Francesco Scatassa",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/frascata/retry-on-error-js/issues"
   },
-  "homepage": "https://github.com/frascata/retry-on-error-js",
   "engines": {
     "node": ">=5.0.0"
   },
