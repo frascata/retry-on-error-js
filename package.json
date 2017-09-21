@@ -1,6 +1,6 @@
 {
   "name": "retry-on-error-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Async/await retry function",
   "main": "./lib/index.js",
   "scripts": {
@@ -20,6 +20,13 @@
   "engines": {
     "node": ">=5.0.0"
   },
+  "keywords": [
+    "async",
+    "await",
+    "promise",
+    "babel",
+    "es6"
+  ],
   "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.5.1",
