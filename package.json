@@ -1,6 +1,6 @@
 {
   "name": "retry-on-error-js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Async/await retry function",
   "main": "./lib/index.js",
   "scripts": {

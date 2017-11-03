@@ -37,10 +37,12 @@ export default class RetryOnError {
                                 maxTries = 5,
                                 exponentialBase = 2,
                                 multiplier = 5,
+                                errorHandlerStrategy = new CatchAllErrorHandler(),
                                 logStrategy = DefaultLogger.logError
                               } = {}) {
     const retry = RetryOnError.createWithStrategy(asyncFunction, {
       delayStrategy: new ExponentialDelay(maxTries, multiplier, exponentialBase),
+      errorHandlerStrategy: errorHandlerStrategy,
       logStrategy: logStrategy,
       context: context
     });
@@ -52,10 +54,12 @@ export default class RetryOnError {
                             {
                               maxTries = 5,
                               multiplier = 5,
+                              errorHandlerStrategy = new CatchAllErrorHandler(),
                               logStrategy = DefaultLogger.logError
                             } = {}) {
     const retry = RetryOnError.createWithStrategy(asyncFunction, {
       delayStrategy: new FibonacciDelay(maxTries, multiplier),
+      errorHandlerStrategy: errorHandlerStrategy,
       logStrategy: logStrategy,
       context: context
     });
@@ -67,10 +71,12 @@ export default class RetryOnError {
                            {
                              maxTries = 5,
                              multiplier = 5,
+                             errorHandlerStrategy = new CatchAllErrorHandler(),
                              logStrategy = DefaultLogger.logError
                            } = {}) {
     const retry = RetryOnError.createWithStrategy(asyncFunction, {
       delayStrategy: new ExponentialDelay(maxTries, multiplier, 1),
+      errorHandlerStrategy: errorHandlerStrategy,
       logStrategy: logStrategy,
       context: context
     });
@@ -97,11 +103,11 @@ export default class RetryOnError {
         return await this.asyncFunction();
       } catch (e) {
 
-        this._logStrategy(e, {attempts, lastDelayTime, context: this._context});
-
         if (!this._errorHandlerStrategy.canCatch(e)) {
           throw e;
         }
+
+        this._logStrategy(e, {attempts, lastDelayTime, context: this._context});
 
         wasSuccessful = false;
         if (attempts > this._delayStrategy.maxTries) {
